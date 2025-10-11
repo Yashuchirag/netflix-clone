@@ -1,7 +1,7 @@
 {
   "name": "netflix-clone",
   "version": "1.0.0",
-  "description": "",
+  "description": "Netflix Clone by Chirag",
   "main": "backend/server.js",
   "scripts": {
     "dev": "nodemon backend/server.js"
