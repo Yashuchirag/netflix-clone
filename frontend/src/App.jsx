@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import './index.css';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/home/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 
@@ -15,4 +14,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
