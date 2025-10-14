@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { ChevronRight, Video } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
+import Footer from "../../components/Footer";
 
 export default function AuthScreen() {
     const [email, setEmail] = useState("");
@@ -70,7 +71,7 @@ export default function AuthScreen() {
             />
             {/* 2nd Section */}
             <div className="py-10 bg-black text-white">
-                <div className="flex max-w-6xl mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2">
+                <div className="flex max-w-6xl mx-auto items-center justify-center md:flex-row flex-col-reverse px-4 md:px-2">
                     {/* Left Side */}
                     <div className="flex-1 relative">
                         <div className="flex-1">
@@ -103,6 +104,87 @@ export default function AuthScreen() {
                 </div>
             </div>
 
+            {/* Separator Component */}
+            <div className="h-2 w-full bg-[#232323]"
+                aria-hidden="true"
+            />
+
+            {/* 3rd Section */}
+            <div className="py-10 bg-black text-white">
+                <div className="flex max-w-6xl mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2">
+                    {/* Left Side */}
+                    <div className="flex-1 text-center md:text-left">
+                        <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Watch Everywhere</h2>
+                        <p className="text-lg md:text-xl">
+                            Stream Unlimited movies and TV shows on your phone, tablet, laptop, and TV.
+                        </p>
+                    </div>
+
+                    {/* Right Side */}
+                    <div className="flex-1 relative">
+                        <img src="/device-pile.png" alt="Devices Pile Image" className="mt-4 z-20 relative" />
+                        <video className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-3/4 h-1/2 z-10
+                        max-w-[63%]" playsInline autoPlay loop muted>
+                            <source src="/video-devices.m4v" type="video/mp4" />
+                        </video>
+                    </div>
+                    
+                </div>
+            </div>
+            {/* Separator Component */}
+            <div className="h-2 w-full bg-[#232323]"
+                aria-hidden="true"
+            />
+            {/* 4th Section */}
+            <div className="py-10 bg-black text-white">
+                <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Trending Now</h1>
+                <div className="flex max-w-6xl mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2">
+                    <div className="max-w-7xl mx-auto relative group">
+                        <button
+                            onClick={() => scroll('left')}
+                            className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 z-10"
+                        >
+                            <ChevronLeft className="w-6 h-6" />
+                        </button>
+                        <div
+                            id="scroll-container"
+                            className="flex gap-4 overflow-x-hidden scroll-smooth pb-2"
+                        >
+                            <div className="relative h-96 rounded-lg overflow-hidden transition-transform duration-300 transform hover:scale-105">
+
+                            </div>
+                        </div>
+                        <button
+                            onClick={() => scroll('right')}
+                            className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 z-10"
+                        >
+                            <ChevronRight className="w-6 h-6" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div className="max-w-7xl mx-auto relative group">
+                <button
+                    onClick={() => scroll('left')}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 z-10"
+                >
+                    <ChevronLeft className="w-6 h-6" />
+                </button>
+                <div
+                    id="scroll-container"
+                    className="flex gap-4 overflow-x-hidden scroll-smooth pb-2"
+                >
+                
+                </div>
+                <button
+                    onClick={() => scroll('right')}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 z-10"
+                >
+                    <ChevronRight className="w-6 h-6" />
+                </button>
+            </div>
+
+            <Footer />
 
         </div>
     )
