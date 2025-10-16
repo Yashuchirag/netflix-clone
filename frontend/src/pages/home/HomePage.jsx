@@ -1,10 +1,9 @@
-import { useState } from "react";
 import AuthScreen from "./AuthScreen";
 import HomeScreen from "./HomeScreen";
-import { Link } from "react-router-dom";
+import { useAuthUser } from "../../store/authUser";
 
 export default function HomePage() {
-    const [user, setUser] = useState(false);
+    const {user} = useAuthUser();
     
     return (
         <div>

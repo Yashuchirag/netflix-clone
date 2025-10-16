@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import Footer from "../../components/Footer";
 
 export default function AuthScreen() {
     const [email, setEmail] = useState("");
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+
+    const handleFormSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
+        navigate("/signup?email=" + email);
     }
     return (
         <div className="hero-bg relative">
@@ -23,16 +24,15 @@ export default function AuthScreen() {
                 <h1 className="text-4xl md:text-6xl font-bold mb-4">Unlimited movies, TV shows, and more</h1>
                 <p className="text-lg md:text-2xl mb-4">Watch anywhere. Cancel anytime.</p>
                 <p className="text-lg md:text-2xl mb-4">Ready to watch? Enter your email to create or restart your membership.</p>
-                <form className="flex flex-col md:flex-row gap-4 w-1/2">
+                <form className="flex flex-col md:flex-row gap-4 w-1/2" onSubmit={handleFormSubmit}>
                     <input 
                         type="email" 
                         placeholder="Email address" 
                         className="p-2 rounded flex-1 bg-black/80 border border-gray-700"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        required
                     />
-                    <button onClick={handleSubmit} className="bg-red-600 text-xl lg:text-2xl px-2 lg:px-6 py-1 md:py-2 rounded flex justify-center items-center">
+                    <button className="bg-red-600 text-xl lg:text-2xl px-2 lg:px-6 py-1 md:py-2 rounded flex justify-center items-center">
                         Get Started
                         <ChevronRight className="size-8 md:size-10 lg:size-12" />
                     </button>
@@ -183,8 +183,6 @@ export default function AuthScreen() {
                     <ChevronRight className="w-6 h-6" />
                 </button>
             </div>
-
-            <Footer />
 
         </div>
     )

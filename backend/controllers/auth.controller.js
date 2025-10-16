@@ -93,3 +93,12 @@ export const logout = async function (req, res) {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+export const authCheck = async function (req, res) {
+    try {
+        res.status(200).json({ success: true, user: req.user });
+    } catch (error) {
+        console.log("Error in authCheck controller", error.message);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
