@@ -1,20 +1,28 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthUser } from "../store/authUser";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpPage() {
+    const navigate = useNavigate();
     const {searchParams} = new URL(document.location);
     const emailValue = searchParams.get("email");
 
     const [email, setEmail] = useState(emailValue)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const {signup} = useAuthUser();
+    const {signup, isSigningUp, user} = useAuthUser();
 
     const handleSubmit = (e) => {
         e.preventDefault()
         signup({email, username, password});
     }
+
+    useEffect(() => {
+        if(user){
+            navigate("/")
+        }
+    }, [user])
 
     return (
         <div className="h-screen w-full hero-bg">
@@ -37,7 +45,9 @@ export default function SignUpPage() {
                                 className="w-full px-3 mt-1 border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring"
                                 id="email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}/>
+                                onChange={(e) => setEmail(e.target.value)}
+                                disabled={isSigningUp}
+                            />
                         </div>
                         <div>
                             <label htmlFor="username" className="text-sm font-medium text-gray-300 block">Username</label>
@@ -47,7 +57,9 @@ export default function SignUpPage() {
                                 className="w-full px-3 mt-1 border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring"
                                 id="username"
                                 value={username}
-                                onChange={(e) => setUsername(e.target.value)}/>
+                                onChange={(e) => setUsername(e.target.value)}
+                                disabled={isSigningUp}
+                            />
                         </div>
                         <div>
                             <label htmlFor="password" className="text-sm font-medium text-gray-300 block">Password</label>
@@ -57,9 +69,17 @@ export default function SignUpPage() {
                                 className="w-full px-3 mt-1 border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring"
                                 id="password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}/>
+                                onChange={(e) => setPassword(e.target.value)}
+                                disabled={isSigningUp}
+                            />
                         </div>
-                        <button type="submit" className="w-full px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600">Sign Up</button>
+                        <button 
+                            type="submit" 
+                            className="w-full px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                            disabled={isSigningUp}
+                        >
+                            {isSigningUp ? "Signing Up..." : "Sign Up"}
+                        </button>
                     </form>
                     <p className="text-center text-gray-300 mt-4">
                         Already have an account? {" "}

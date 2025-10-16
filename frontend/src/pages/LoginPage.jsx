@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuthUser } from "../store/authUser";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const {login, isLoggingIn, user} = useAuthUser();
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
-        console.log(email, password)
+        login({email, password})
     }
+
+    useEffect(() => {
+        if(user){
+            navigate("/")
+        }
+    }, [user])
 
     return (
         <div className="h-screen w-full hero-bg">
@@ -32,7 +41,9 @@ export default function LoginPage() {
                                 className="w-full px-3 mt-1 border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring"
                                 id="email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}/>
+                                onChange={(e) => setEmail(e.target.value)}
+                                disabled={isLoggingIn}
+                            />
                         </div>
                         <div>
                             <label htmlFor="password" className="text-sm font-medium text-gray-300 block">Password</label>
@@ -42,9 +53,17 @@ export default function LoginPage() {
                                 className="w-full px-3 mt-1 border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring"
                                 id="password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}/>
+                                onChange={(e) => setPassword(e.target.value)}
+                                disabled={isLoggingIn}
+                            />
                         </div>
-                        <button type="submit" className="w-full px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600">Log In</button>
+                        <button 
+                            type="submit" 
+                            className="w-full px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                            disabled={isLoggingIn}
+                        >
+                            {isLoggingIn ? "Logging In..." : "Log In"}
+                        </button>
                     </form>
                     <p className="text-center text-gray-300 mt-4">
                         Don't have an account? {" "}

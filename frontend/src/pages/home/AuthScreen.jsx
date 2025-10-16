@@ -1,15 +1,70 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { useRef } from "react";
 
 export default function AuthScreen() {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
+    const scrollRef = useRef(null);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
         navigate("/signup?email=" + email);
     }
+
+    const shows = [
+        {
+            id: 1,
+            title: "Monster: The Ed Gein Story",
+            img: "/hero.png",
+        },
+        {
+            id: 2,
+            title: "Monster: The Ed Gein Story",
+            img: "/stranger-things-lg.png",
+        },
+        {
+            id: 3,
+            title: "Monster: The Ed Gein Story",
+            img: "/kids.png",
+        },
+        {
+            id: 4,
+            title: "Monster: The Ed Gein Story",
+            img: "/kids.png",
+        },
+        {
+            id: 5,
+            title: "Monster: The Ed Gein Story",
+            img: "/kids.png",
+        },
+        {
+            id: 3,
+            title: "Monster: The Ed Gein Story",
+            img: "/kids.png",
+        },
+        {
+            id: 4,
+            title: "Monster: The Ed Gein Story",
+            img: "/kids.png",
+        },
+        {
+            id: 5,
+            title: "Monster: The Ed Gein Story",
+            img: "/kids.png",
+        },
+    ]
+
+    const scroll = (direction) => {
+        if (scrollRef.current) {
+            const { clientWidth } = scrollRef.current;
+            scrollRef.current.scrollBy({
+                left: direction === "left" ? -clientWidth : clientWidth,
+                behavior: "smooth",
+            });
+        }
+    };
     return (
         <div className="hero-bg relative">
             <header className="max-w-6xl mx-auto flex items-center justify-between p-4 pb-10">
@@ -45,7 +100,7 @@ export default function AuthScreen() {
             />
 
             {/* 1st Section */}
-            <div className="py-10 bg-black text-white">
+            <div className="py-10 bg-black text-white min-h-screen">
                 <div className="flex max-w-6xl mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2">
                     {/* Left Side */}
                     <div className="flex-1 text-center md:text-left">
@@ -136,54 +191,42 @@ export default function AuthScreen() {
                 aria-hidden="true"
             />
             {/* 4th Section */}
-            <div className="py-10 bg-black text-white">
-                <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Trending Now</h1>
+            <div className="py-10 bg-black text-white min-h-screen">
+                <h1 className="text-2xl md:text-3xl font-bold mb-4">Trending Now</h1>
                 <div className="flex max-w-6xl mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2">
                     <div className="max-w-7xl mx-auto relative group">
                         <button
                             onClick={() => scroll('left')}
-                            className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 z-10"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black rounded-full p-2 transition"
                         >
                             <ChevronLeft className="w-6 h-6" />
                         </button>
                         <div
-                            id="scroll-container"
-                            className="flex gap-4 overflow-x-hidden scroll-smooth pb-2"
+                            ref={scrollRef}
+                            className="flex space-x-6 overflow-x-scroll scrollbar-hide scroll-smooth snap-x snap-mandatory w-full"
                         >
-                            <div className="relative h-96 rounded-lg overflow-hidden transition-transform duration-300 transform hover:scale-105">
-
-                            </div>
+                            {shows.map((show) => (
+                                <div key={show.id} className="relative flex-shrink-0 w-[220px] md:w-[250px] lg:w-[280px] group snap-start">
+                                    <img 
+                                        src={show.img} 
+                                        alt={show.title} 
+                                        className="w-full h-80 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105" 
+                                    />
+                                    <div className="absolute -left-4 -bottom-6 text-[7rem] font-extrabold text-white/90 leading-none drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+                                        {show.id}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                         <button
                             onClick={() => scroll('right')}
-                            className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 z-10"
+                            className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/60 rounded-full p-2 cursor-pointer hover:bg-black transition"
                         >
                             <ChevronRight className="w-6 h-6" />
                         </button>
                     </div>
                 </div>
             </div>
-            <div className="max-w-7xl mx-auto relative group">
-                <button
-                    onClick={() => scroll('left')}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 z-10"
-                >
-                    <ChevronLeft className="w-6 h-6" />
-                </button>
-                <div
-                    id="scroll-container"
-                    className="flex gap-4 overflow-x-hidden scroll-smooth pb-2"
-                >
-                
-                </div>
-                <button
-                    onClick={() => scroll('right')}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 z-10"
-                >
-                    <ChevronRight className="w-6 h-6" />
-                </button>
-            </div>
-
         </div>
     )
 }
