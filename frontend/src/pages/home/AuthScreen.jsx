@@ -40,17 +40,17 @@ export default function AuthScreen() {
             img: "/kids.png",
         },
         {
-            id: 3,
+            id: 6,
             title: "Monster: The Ed Gein Story",
             img: "/kids.png",
         },
         {
-            id: 4,
+            id: 7,
             title: "Monster: The Ed Gein Story",
             img: "/kids.png",
         },
         {
-            id: 5,
+            id: 8,
             title: "Monster: The Ed Gein Story",
             img: "/kids.png",
         },
