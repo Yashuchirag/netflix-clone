@@ -1,34 +1,41 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { ChevronRight } from "lucide-react";
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+
 import { useContentStore } from "../../store/content";
 import axios from "axios";
 import { SMALL_IMAGE_BASE_URL } from "../../utils/constants";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function AuthScreen() {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
     const { contentType, setContentType } = useContentStore();
     const [content, setContent] = useState([]);
+    const [showArrows, setShowArrows] = useState(false);
+    const sliderRef = useRef(null);
+    
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
         navigate("/signup?email=" + email);
     }
 
-    
-
     useEffect(() => {
             const getContent = async () => {
                 const res = await axios.get(`/api/v1/public/trending`);
-                console.log(res.data.content);
                 setContent(res.data.content);
             };
             getContent();
     }, [contentType]);
 
-    console.log("contentType: ", content);
+    const scrollLeft = () => {
+		if (sliderRef.current) {
+			sliderRef.current.scrollBy({ left: -sliderRef.current.offsetWidth, behavior: "smooth" });
+		}
+	};
+	const scrollRight = () => {
+		sliderRef.current.scrollBy({ left: sliderRef.current.offsetWidth, behavior: "smooth" });
+	};
 
     return (
         <div className="hero-bg relative">
@@ -64,10 +71,15 @@ export default function AuthScreen() {
                 aria-hidden="true"
             />
             {/* 1st Section */}
-            <div className="bg-black text-white relative px-5 md:px-20">
+            <div
+                className="bg-black text-white relative px-5 md:px-20 overflow-hidden" 
+                onMouseEnter={() => setShowArrows(true)} 
+                onMouseLeave={() => setShowArrows(false)}
+            >
+                
                 <h2 className="text-2xl font-bold mb-4">Trending Now</h2>
                         
-                <div className="flex space-x-4 overflow-x-scroll scrollbar-hide">
+                <div className="flex space-x-4 overflow-x-scroll scrollbar-hide" ref={sliderRef}>
                     {content?.map((item) => (
                         <Link to={`/watch/${item.id}`} key={item.id} className="min-w-[250px] relative group ">
                             <div className="rounded-lg overflow-hidden">
@@ -78,15 +90,37 @@ export default function AuthScreen() {
                         </Link>
                     ))}
                 </div>
+                {showArrows && (
+				<>
+					<button
+						className='absolute top-1/2 -translate-y-1/2 left-5 
+                        md:left-0 flex items-center justify-center size-12 
+                        rounded-full bg-black bg-opacity-50 hover:bg-opacity-75
+                        text-white z-10'
+						onClick={scrollLeft}
+					>
+						<ChevronLeft size={24} />
+					</button>
+
+					<button
+						className='absolute top-1/2 -translate-y-1/2 right-5 
+                        md:right-0 flex items-center justify-center size-12 
+                        rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 text-white z-10'
+						onClick={scrollRight}
+					>
+						<ChevronRight size={24} />
+					</button>
+				</>
+			    )}
             </div>
+            
 
             {/* Separator Component */}
             <div className="h-2 w-full bg-[#232323]"
                 aria-hidden="true"
             />
-
             {/* 2nd Section */}
-            <div className="py-10 bg-black text-white min-h-screen">
+            <div className="py-10 bg-black text-white">
                 <div className="flex max-w-6xl mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2">
                     {/* Left Side */}
                     <div className="flex-1 text-center md:text-left">
@@ -106,6 +140,7 @@ export default function AuthScreen() {
                     
                 </div>
             </div>
+
             {/* Separator Component */}
             <div className="h-2 w-full bg-[#232323]"
                 aria-hidden="true"
