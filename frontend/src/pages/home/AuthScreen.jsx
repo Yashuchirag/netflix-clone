@@ -91,26 +91,26 @@ export default function AuthScreen() {
                     ))}
                 </div>
                 {showArrows && (
-				<>
-					<button
-						className='absolute top-1/2 -translate-y-1/2 left-5 
-                        md:left-0 flex items-center justify-center size-12 
-                        rounded-full bg-black bg-opacity-50 hover:bg-opacity-75
-                        text-white z-10'
-						onClick={scrollLeft}
-					>
-						<ChevronLeft size={24} />
-					</button>
+                    <>
+                        <button
+                            className='absolute top-1/2 -translate-y-1/2 left-5 
+                            md:left-0 flex items-center justify-center size-12 
+                            rounded-full bg-black bg-opacity-50 hover:bg-opacity-75
+                            text-white z-10'
+                            onClick={scrollLeft}
+                        >
+                            <ChevronLeft size={24} />
+                        </button>
 
-					<button
-						className='absolute top-1/2 -translate-y-1/2 right-5 
-                        md:right-0 flex items-center justify-center size-12 
-                        rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 text-white z-10'
-						onClick={scrollRight}
-					>
-						<ChevronRight size={24} />
-					</button>
-				</>
+                        <button
+                            className='absolute top-1/2 -translate-y-1/2 right-5 
+                            md:right-0 flex items-center justify-center size-12 
+                            rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 text-white z-10'
+                            onClick={scrollRight}
+                        >
+                            <ChevronRight size={24} />
+                        </button>
+                    </>
 			    )}
             </div>
             
