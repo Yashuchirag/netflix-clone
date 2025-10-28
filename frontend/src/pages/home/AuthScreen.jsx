@@ -111,7 +111,7 @@ export default function AuthScreen() {
                             <ChevronRight size={24} />
                         </button>
                     </>
-			    )}
+                )}
             </div>
             
 
