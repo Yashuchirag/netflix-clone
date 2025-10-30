@@ -8,6 +8,8 @@ import { Toaster } from 'react-hot-toast';
 import { useAuthUser } from './store/authUser';
 import { useEffect } from 'react';
 import {Loader} from 'lucide-react';
+import WatchPage from './pages/WatchPage';
+import { Navigate } from 'react-router-dom';
 
 function App() {
 
@@ -33,6 +35,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/watch/:id" element={user ? <WatchPage /> : <Navigate to="/login" />} />
       </Routes>
       <Footer />
       

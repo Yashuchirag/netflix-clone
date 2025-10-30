@@ -1,4 +1,5 @@
 import Navbar from "../../components/Navbar";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Play, Info } from "lucide-react";
 import useGetTrendingContent from "../../hooks/useGetTrendingContent";
@@ -10,6 +11,7 @@ export default function HomeScreen() {
     const { trendingContent } = useGetTrendingContent();
     
     const {contentType, setContentType} = useContentStore();
+    const [imgLoading, setImgLoading] = useState(true);
     
 
     if (!trendingContent) {
@@ -27,7 +29,16 @@ export default function HomeScreen() {
             <div className="relative h-screen text-white">
                 <Navbar />
                 {/* Separator Component */}
-                <img src={BIG_IMAGE_BASE_URL + trendingContent?.backdrop_path} alt={trendingContent?.title || trendingContent?.name} className="absolute top-0 left-0 h-full w-full object-cover -z-50" />
+                {imgLoading && (
+                    <div className="absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer">
+                    </div>
+                )}
+                <img 
+                    src={BIG_IMAGE_BASE_URL + trendingContent?.backdrop_path} 
+                    alt={trendingContent?.title || trendingContent?.name} 
+                    className="absolute top-0 left-0 h-full w-full object-cover -z-50" 
+                    onLoad={() => setImgLoading(false)}
+                />
                 <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-br from-black to-transparent" aria-hidden="true"/>
 
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center px-8 md:px-16 lg:px-32">
