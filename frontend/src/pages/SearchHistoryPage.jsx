@@ -69,7 +69,7 @@ const SearchHistoryPage = () => {
             return (
               <div 
                 key={event.id} 
-                className='bg-gray-800 p-4 rounded flex items-start'
+                className='bg-gray-800 p-4 rounded flex items-start justify-between'
               >
                 <img 
                   src={SMALL_IMAGE_BASE_URL + event.image} 
@@ -88,10 +88,16 @@ const SearchHistoryPage = () => {
                 >
                   {event.searchType[0].toUpperCase() + event.searchType.slice(1)}
                 </span>
-                <Trash
-                  className='size-5 ml-4 cursor-pointer hover:fill-red-600 hover:text-red-600'
+                <button
                   onClick={() => handleDelete(event.id)}
-                />
+                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-red-600/20 transition-colors"
+                  aria-label="Delete"
+                >
+                  <Trash
+                    size={18}
+                    className="text-gray-400 cursor-pointer hover:text-red-600 transition-colors"
+                  />
+                </button>
               </div>
             )
 
