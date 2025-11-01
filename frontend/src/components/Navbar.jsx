@@ -1,16 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthUser } from "../store/authUser";
 import { useState } from "react";
 import { MenuIcon, SearchIcon, X, LogOut } from "lucide-react";
 import { useContentStore } from "../store/content";
+
 
 export default function Navbar() {
     const { user, logout } = useAuthUser();
     const [searchTerm, setSearchTerm] = useState("");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { contentType, setContentType } = useContentStore();
+    const navigate = useNavigate();
 
     const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+    const handleSearchClick = () => {
+        navigate('/search');
+    }
 
     return (
         <header className="w-full text-white shadow-md sticky top-0 z-50">
@@ -38,9 +43,10 @@ export default function Navbar() {
                         <input
                         type="search"
                         placeholder="Search..."
-                        className="w-full pl-10 pr-4 py-2 text-sm border-2 border-gray-700 rounded-full bg-gray-800/80 placeholder-gray-400 focus:outline-none focus:border-white"
+                        className="hidden sm:block w-full pl-10 pr-4 py-2 text-sm border-2 border-gray-700 rounded-full bg-gray-800/80 placeholder-gray-400 focus:outline-none focus:border-white"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
+                        onFocus={handleSearchClick}
                         />
                         <SearchIcon className="absolute left-3 w-5 h-5 text-gray-400" />
                     </div>
@@ -101,14 +107,7 @@ export default function Navbar() {
 
                     {/* Compact Search for Mobile */}
                     <div className="relative w-11/12 mt-2">
-                        <input
-                            type="search"
-                            placeholder="Search..."
-                            className="w-full pl-10 pr-4 py-2 text-sm border-2 border-gray-700 rounded-full bg-gray-800/80 placeholder-gray-400 focus:outline-none focus:border-white"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <SearchIcon className="absolute left-3 w-5 h-5 text-gray-400" />
+                        <SearchIcon onClick={handleSearchClick} className="absolute left-3 w-5 h-5 text-gray-400" />
                     </div>
                 </div>
             )}
