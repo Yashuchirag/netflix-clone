@@ -116,9 +116,6 @@ const WatchPage = () => {
         )
     }
 
-    console.log("similarContent: ", similarContent);
-    console.log("Poster details: ", SMALL_IMAGE_BASE_URL + content.backdrop_path || content.poster_path);
-    // console.log("content: ", content);
 
     return (
         <div className="bg-black min-h-screen text-white">

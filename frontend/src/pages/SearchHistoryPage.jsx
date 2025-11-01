@@ -30,8 +30,6 @@ const SearchHistoryPage = () => {
     getSearchHistory();
   }, []);
 
-  console.log('Search History: ', searchHistory);
-
   if (searchHistory.length === 0) {
     return (
       <div className="bg-black min-h-screen text-white">
