@@ -1,12 +1,15 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import YouTube from "react-youtube";
+
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+import axios from 'axios';
+
 import { useContentStore } from '../store/content';
 import Navbar from '../components/Navbar';
-import axios from 'axios';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import ReactPlayer from 'react-player';
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMAGE_BASE_URL } from '../utils/constants';
-import { Link } from 'react-router-dom';
 import formatReleaseDate from '../utils/dateFunction';
 import WatchPageSkeleton from '../components/skeletons/WatchPageSkeleton';
 
@@ -81,7 +84,9 @@ const WatchPage = () => {
 
     const handleNext = () => {
         if (currentTrailerIdx < trailers.length - 1) {
+            console.log(trailers[currentTrailerIdx].key);
             setCurrentTrailerIdx(currentTrailerIdx + 1);
+            console.log(trailers[currentTrailerIdx].key)
         }
     }
 
@@ -116,6 +121,8 @@ const WatchPage = () => {
         )
     }
 
+    console.log(trailers.length)
+
 
     return (
         <div className="bg-black min-h-screen text-white">
@@ -140,28 +147,34 @@ const WatchPage = () => {
                     </div>
                 )}
                 <div className='aspect-video mb-8 p-2 sm:px-10 md:px-32'>
-                    {trailers && trailers.length > 0 && trailers[currentTrailerIdx]?.key && (
-                        <>
-                            <ReactPlayer
-                                url={`https://www.youtube.com/embed/${trailers[currentTrailerIdx]?.key}`}
-                                controls={true}
-                                width={'100%'}
-                                height={'70vh'} 
-                                className='mx-auto overflow-hidden rounded-lg'
-                                onError={() => setVideoError(true)}
+                    {trailers.length === 0 && (
+                        <h2 className="text-center text-2xl font-bold mt-5">
+                            No trailers available for{" "}
+                            <span className="text-white/70">{content?.title || content?.name}</span>
+                        </h2>
+                    )}
+                    {trailers.length > 0 && trailers[currentTrailerIdx]?.key && (
+                        <div className="relative w-full h-full">
+                            <YouTube
+                                videoId={trailers[currentTrailerIdx]?.key}
+                                className="absolute top-0 left-0 w-full h-full"
+                                iframeClassName="absolute top-0 left-0 w-full h-full"
+                                opts={{
+                                    width: "100%",
+                                    height: "100%",
+                                    playerVars: {
+                                        autoplay: 0,
+                                        controls: 1,
+                                    },
+                                }}
                             />
+                            
                             {videoError && (
                                 <p className="text-red-400 text-center mt-2">
                                     This trailer isn’t available for embedding. <a href={`https://www.youtube.com/watch?v=${trailers[currentTrailerIdx]?.key}`} target="_blank" rel="noopener noreferrer">Watch on YouTube</a>.
                                 </p>
                             )}
-                            {trailers?.length === 0 && (
-                                <h2 className="text-center text-2xl font-bold mt-5">
-                                    No trailers available for {" "}
-                                    <span className="text-white/70">{content?.title || content?.name}</span>
-                                </h2>
-                            )}
-                        </>
+                        </div>
                     )}
                 </div>
 
