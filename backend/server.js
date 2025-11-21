@@ -8,6 +8,7 @@ import movieRoutes from "./routes/movie.route.js";
 import tvRoutes from "./routes/tv.route.js";
 import searchRoutes from "./routes/search.route.js";
 import publicRoutes from "./routes/public.route.js";
+import profileRoutes from "./routes/profile.route.js";
 
 import { connectDB } from "./config/db.js";
 import { ENV_VARS } from "./config/envVars.js";
@@ -26,6 +27,9 @@ app.use("/api/v1/public", publicRoutes)
 app.use("/api/v1/movie", protectedRoute, movieRoutes)
 app.use("/api/v1/tv", protectedRoute, tvRoutes)
 app.use("/api/v1/search", protectedRoute, searchRoutes)
+
+// Adding Profile Section
+app.use("/api/v1/profile", protectedRoute, profileRoutes)
 
 if (process.env.NODE_ENV === "production") {
     const frontendPath = path.join(__dirname, "frontend", "dist");

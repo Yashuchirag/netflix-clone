@@ -1,5 +1,20 @@
 import mongoose from "mongoose";
 
+const profileSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    avatar: {
+        type: String,
+        required: true
+    },
+    searchHistory: {
+        type: [String],   // each profile keeps search history
+        default: []
+    }
+});
+
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -26,7 +41,8 @@ const userSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    profiles: [profileSchema]
 });
 
 const User = mongoose.model("User", userSchema);
