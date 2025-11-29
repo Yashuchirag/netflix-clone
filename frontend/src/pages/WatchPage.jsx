@@ -152,7 +152,7 @@ const WatchPage = () => {
                         </h2>
                     )}
                     {trailers.length > 0 && trailers[currentTrailerIdx]?.key && (
-                        <div className="relative w-full h-full">
+                        <div className="relative w-full pb-[56.25%] rounded-lg overflow-hidden">
                             <YouTube
                                 videoId={trailers[currentTrailerIdx]?.key}
                                 className="absolute top-0 left-0 w-full h-full"
