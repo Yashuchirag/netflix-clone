@@ -188,6 +188,8 @@ npm start
 🌐 [Portfolio](https://www.chiragch.com)  
 📧 [Email](mailto:chiragchandrashekar@gmail.com)
 
+Netflix is hosted at https://netflix-clone.chiragch.com/ or https://netflix-clone-cwrx.onrender.com/
+
 ---
 
 ## 🪪 License
