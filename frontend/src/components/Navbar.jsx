@@ -23,7 +23,7 @@ export default function Navbar() {
                 {/* Left Section: Logo */}
                 <Link to="/" className="flex items-center">
                 <img
-                    src="/netflix-logo.png"
+                    src="/Clone.png"
                     alt="logo"
                     className="w-24 sm:w-32 object-contain"
                 />
