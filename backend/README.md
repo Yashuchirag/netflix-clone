@@ -35,19 +35,6 @@ A RESTful backend API built with **Node.js** and **Express.js** for a movie and 
 - [MongoDB](https://www.mongodb.com/) (local or Atlas)
 - npm or yarn
 
-### Installation
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
-
-# 2. Install dependencies
-npm install
-
-# 3. Create a .env file in the root directory
-cp .env.example .env
-```
 
 ### Environment Variables
 
